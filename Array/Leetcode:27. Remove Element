@@ -23,7 +23,7 @@ Note that the order of those five elements can be arbitrary.
 
 It doesn't matter what values are set beyond the returned length.
 
-思路:利用两个索引值,一个索引值i不断往前,一个cnt碰到相同的值就停止,
+思路1:利用两个索引值,一个索引值i不断往前,一个cnt碰到相同的值就停止,
 然后将后面不同的值赋值到cnt的位置,碰到不同的值也一直往前。
 
 class Solution {
@@ -41,3 +41,28 @@ public:
     }
 };
 
+思路2:减少赋值操作和遍历次数。也是利用两个索引值。
+i一直往后走,一开始n-1则指向最后一个值,然后往前走。
+当i指向的值与val相同时,则将n-1指向的值赋值到i指向的位置。
+不同时,则i一直往前走。
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int n = nums.size();
+        int i = 0;
+        while (i < n)
+        {
+            if (nums[i] == val)
+            {
+                nums[i] = nums[n - 1];
+                n--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return n;
+    }
+};
